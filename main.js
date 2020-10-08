@@ -154,3 +154,34 @@ class clientePruebas {
 
 let miPrueba = new clientePruebas('miNombre', 'miTelefono', [['3 hs', '21/2/1997']], [{importe: 300, pagado:false}])
 //	             Cliente de pruebas funciona!!!
+
+// recibe la lista de objetos y la ordena de mayor a menor
+// respecto de la contribucion
+// (para hacer menor a mayor solo hay que invertir 'a' y 'b')
+function ordenarPorContribucion(listaDeContribuyentes) {
+	// De cada par de objetos a comparar toma la contribucion 
+	// hace la resta y decide cual es mayor en base al resultado (+, -, 0)
+	// https://comoprogramo.wordpress.com/2012/06/29/como-ordenar-en-javascript-un-array-de-objetos-por-cualquier-campo/
+	return listaDeContribuyentes.sort(function (a,b) { return (b.contribuyo - a.contribuyo)})
+}
+
+
+function mejoresClientes(listaClientes) {
+	let mejoresClientesLista = []
+	for (let i = 0; i < listaClientes.length; i++) {
+		const cliente = listaClientes[i]
+		let pagosTotales = 0
+
+		for (let j = 0; j < cliente.pagos.length; j++) {
+			if (cliente.pagos[j].pagado) {
+				pagosTotales += cliente.pagos[j].importe
+			}
+		}
+
+		mejoresClientesLista.push({nombre: cliente.nombre, contribuyo: pagosTotales})
+	}
+	mejoresClientesLista = ordenarPorContribucion(mejoresClientesLista)
+	return mejoresClientesLista
+}
+
+let bestClients = mejoresClientes(archivos)
