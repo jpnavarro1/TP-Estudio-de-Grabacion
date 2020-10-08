@@ -4,8 +4,12 @@ El estudio tiene en sus archivos:
 Una hoja para cada cliente
 	-Nombre de la banda
 	-telefono
-	-sesiones de grabacion (duración y fecha)
-	-registro de pagos
+	-sesiones: lista de sesiones
+		-duracion
+		-fecha
+	-registro de pagos: lista de pagos
+		-importe
+		-pagado
 
 Hora de grabacion = $100
 */
@@ -89,7 +93,7 @@ function importeAPagar(pagos) {
 	let pagoTotal = 0
 	for (let i = 0; i < pagos.length; i++) {
 		if (pagos[i].pagado === false) {
-			pagoTotal = pagoTotal + pagos[i].importe
+			pagoTotal += pagos[i].importe
 		}
 	}
 	return pagoTotal
